@@ -6,6 +6,13 @@ import {
 } from '@int31302/nestjs-slack-listener';
 import { CusswordService } from '../cussword/cussword.service';
 import { UserService } from '../user/user.service';
+import { util } from './slack.utils';
+import {
+  BAD_EMOJI,
+  BAD_MESSAGES,
+  GOOD_EMOJI,
+  GOOD_MESSAGES,
+} from './slack.constants';
 
 @Injectable()
 export class SlackEventService {
@@ -48,7 +55,7 @@ export class SlackEventService {
       //욕에 맞는 답변을 보냄
       return await this.slack.chat.postMessage({
         channel: event.channel,
-        text: '🫥...',
+        text: util.getRandomSlackMessage(GOOD_EMOJI, GOOD_MESSAGES),
       });
     }
 
@@ -56,7 +63,7 @@ export class SlackEventService {
     //욕이 아니라면, 비아냥거리는 말투 사용🫥
     return await this.slack.chat.postMessage({
       channel: event.channel,
-      text: `🤥 나에겐 타격이 없는 욕이네요 후훗`,
+      text: util.getRandomSlackMessage(BAD_EMOJI, BAD_MESSAGES),
     });
   }
 
