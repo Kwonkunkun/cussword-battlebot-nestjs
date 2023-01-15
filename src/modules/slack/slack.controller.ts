@@ -1,7 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { SlackEventService } from './slack.event.service';
 import {
-  IncomingSlackEvent,
   IncomingSlackInteractivity,
   SlackEventHandler,
   SlackEventListener,

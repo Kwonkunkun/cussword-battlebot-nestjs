@@ -3,9 +3,11 @@ import { HealthModule } from './modules/health/health.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from '@nestjs/config';
-import { User } from './typeorm/entities/user';
+import { UserEntity } from './typeorm/entities/user.entity';
 import { SlackModule } from './modules/slack/slack.module';
 import { SlackModule as SlackListenerModule } from '@int31302/nestjs-slack-listener';
+import { ServiceEntity } from './typeorm/entities/service.entity';
+import { UserServiceEntity } from './typeorm/entities/user-service.entity';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -18,8 +20,10 @@ import { SlackModule as SlackListenerModule } from '@int31302/nestjs-slack-liste
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
-          entities: [User],
+          entities: [UserEntity, ServiceEntity, UserServiceEntity],
+          //TODO: dev only 로 변경 필요
           synchronize: true,
+          logging: true,
         };
       },
       inject: [ConfigService],
