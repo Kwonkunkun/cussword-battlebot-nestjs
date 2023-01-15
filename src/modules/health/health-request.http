@@ -1,0 +1,3 @@
+### health check api
+GET http://localhost:3333/api/health
+Accept: application/json
