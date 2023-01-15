@@ -15,7 +15,7 @@ import * as Joi from 'joi';
         return `.env.${process.env.APP_ENV ?? 'prod'}`;
       })(),
       validationSchema: Joi.object({
-        // SLACK_TOKEN: Joi.string().required(),
+        SLACK_BOT_TOKEN: Joi.string().required(),
         // GOOGLE_APPLICATION_CREDENTIALS: Joi.string().required(),
         DB_HOST: Joi.string().required(),
         DB_PORT: Joi.number().required(),

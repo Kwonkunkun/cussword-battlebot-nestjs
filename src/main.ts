@@ -11,13 +11,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  const prefix = 'api';
-  app.setGlobalPrefix(prefix);
   const port = process.env.PORT || 3333;
   await app.listen(port);
-  console.log(
-    `🚀 Application is running on: http://localhost:${port}/${prefix}}`,
-  );
+  console.log(`🚀 Application is running on: http://localhost:${port}}`);
 }
 
 bootstrap();
