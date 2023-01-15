@@ -32,7 +32,7 @@ export class UserService {
   async createNewUser(userId: string, username: string) {
     await this.createUser(userId, username);
     await this.addUserService(userId, 'cussword', 'bronze');
-    await this.addUserService(userId, 'defence', 'bronze');
+    await this.addUserService(userId, 'emergency', 'bronze');
   }
 
   /**

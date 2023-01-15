@@ -48,10 +48,11 @@ export class SlackEventService {
       //욕에 맞는 답변을 보냄
       return await this.slack.chat.postMessage({
         channel: event.channel,
-        text: '🫥 욕하지마세요',
+        text: '🫥...',
       });
     }
 
+    //TODO: 욕임에도 인식하지 못하는 경우도 있으므로 이 데이터는 따로 저장해야함.
     //욕이 아니라면, 비아냥거리는 말투 사용🫥
     return await this.slack.chat.postMessage({
       channel: event.channel,
