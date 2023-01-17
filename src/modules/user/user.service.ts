@@ -29,10 +29,12 @@ export class UserService {
   /**
    * @description 신규 유저 생성
    */
-  async createNewUser(userId: string, username: string) {
-    await this.createUser(userId, username);
+  async createNewUser(userId: string, username: string, channel: string) {
+    //TODO: 추후 트랜잭션 처리
+    await this.createUser(userId, username, channel);
     await this.addUserService(userId, 'cussword', 'bronze');
     await this.addUserService(userId, 'emergency', 'bronze');
+    await this.addUserService(userId, 'other', 'bronze');
   }
 
   /**
@@ -61,8 +63,8 @@ export class UserService {
    * @inner
    * @description 내 db 에 유저를 추가하는 함수, 이때 user-service 도 같이 추가
    */
-  async createUser(userId: string, username: string) {
-    const user = this.userRepository.create({ id: userId, username });
+  async createUser(userId: string, username: string, channel: string) {
+    const user = this.userRepository.create({ id: userId, username, channel });
     await this.userRepository.save(user);
   }
 

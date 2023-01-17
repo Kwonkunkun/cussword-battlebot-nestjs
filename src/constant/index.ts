@@ -1,7 +1,7 @@
 /**
  * @description  service 종류
  */
-export const myServices = ['cussword', 'emergency'] as const;
+export const myServices = ['cussword', 'emergency', 'other'] as const;
 export type MyService = (typeof myServices)[number];
 
 /**

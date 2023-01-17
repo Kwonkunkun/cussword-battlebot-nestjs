@@ -33,7 +33,7 @@ export class SlackEventService {
     // this.logger.debug(event);
 
     //text 에 따라서 다른 handler 실행
-    const { text, user } = event;
+    const { text, user, channel } = event;
 
     //해당 유저가 내 db 에 있는 유저인지 확인
     const isUserInMyDB = await this.userService.isUser(user);
@@ -44,7 +44,7 @@ export class SlackEventService {
       const { user: userInfo } = await this.getUserInfo(user);
 
       //새 유저 생성
-      await this.userService.createNewUser(user, userInfo.name);
+      await this.userService.createNewUser(user, userInfo.name, channel);
     }
 
     //욕인지 체크
@@ -59,8 +59,8 @@ export class SlackEventService {
       });
     }
 
-    //TODO: 욕임에도 인식하지 못하는 경우도 있으므로 이 데이터는 따로 저장해야함.
-    //욕이 아니라면, 비아냥거리는 말투 사용🫥
+    //욕이 아니라면, 비아냥거리는 말투 사용🫥, 내 user service 에 count 하나 추가
+    await this.userService.increaseServiceCount(user, 'other');
     return await this.slack.chat.postMessage({
       channel: event.channel,
       text: util.getRandomSlackMessage(BAD_EMOJI, BAD_MESSAGES),

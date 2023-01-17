@@ -9,6 +9,9 @@ export class UserEntity {
   @Column()
   username: string;
 
+  @Column()
+  channel: string;
+
   @OneToMany(() => UserServiceEntity, (userService) => userService.user)
   services: UserServiceEntity[];
 }
