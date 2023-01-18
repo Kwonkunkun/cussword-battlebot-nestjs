@@ -1,8 +1,8 @@
 {
   "name": "cussword-battlebot-nestjs",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "욕배틀 슬랙봇 nestjs 서버입니다!",
+  "author": "Kwonkunkun",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
