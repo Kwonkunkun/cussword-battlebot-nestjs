@@ -2,7 +2,8 @@ name: Fly Deploy
 on:
   push:
     branches:
-      - main
+#      - main
+      - develop
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -15,20 +16,25 @@ jobs:
         uses: actions/checkout@v3
 
       # fly io deploy setting
-      - name: fly setup
-        uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: List Files in Current Dir
-        run: ls
-
-      - name: fly deploy
-        run: flyctl deploy --remote-only
+#      - name: fly setup
+#        uses: superfly/flyctl-actions/setup-flyctl@master
+#
+#      - name: List Files in Current Dir
+#        run: ls
+#
+#      - name: fly deploy
+#        run: flyctl deploy --remote-only
 
       # 이건 release-it setting 을 위해서 작성됨
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16.19'
+
+      - name: git config
+        run: |
+          git config user.name "Kwonkunkun"
+          git config user.email "kunwoo5012@naver.com"
 
       - name: Install dependencies for release-it
         run: npm i -D release-it @release-it/conventional-changelog
