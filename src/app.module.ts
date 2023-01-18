@@ -14,6 +14,7 @@ import { EmergencyModule } from './modules/emergency/emergency.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
+        const isDev = process.env.APP_ENV === 'dev';
         return {
           type: 'mysql',
           host: configService.get('DB_HOST'),
@@ -22,9 +23,8 @@ import { EmergencyModule } from './modules/emergency/emergency.module';
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
           entities: [UserEntity, ServiceEntity, UserServiceEntity],
-          //TODO: dev only 로 변경 필요
-          synchronize: true,
-          logging: true,
+          synchronize: isDev,
+          logging: isDev,
         };
       },
       inject: [ConfigService],
