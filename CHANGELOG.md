@@ -1,5 +1,12 @@
 
 
+## [1.2.0](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/compare/v1.1.0...v1.2.0) (2023-01-22)
+
+
+### Features
+
+* **tier:** tier 기능 추가 ([8fe4432](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/commit/8fe443292ef4cefbf8cb325c7986280efdf2f41e))
+
 ## 1.1.0 (2023-01-18)
 
 
