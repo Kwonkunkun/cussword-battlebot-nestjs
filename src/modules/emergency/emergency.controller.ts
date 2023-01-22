@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { EmergencyService } from './emergency.service';
 
-@Controller('slack/slash')
+@Controller('slack/emergency')
 export class EmergencyController {
   constructor(private readonly emergencyService: EmergencyService) {}
 

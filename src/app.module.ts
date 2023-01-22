@@ -9,6 +9,9 @@ import { SlackModule as SlackListenerModule } from '@int31302/nestjs-slack-liste
 import { ServiceEntity } from './typeorm/entities/service.entity';
 import { UserServiceEntity } from './typeorm/entities/user-service.entity';
 import { EmergencyModule } from './modules/emergency/emergency.module';
+import { TierModule } from './modules/tier/tier.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ServiceModule } from './modules/service/service.module';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -36,9 +39,11 @@ import { EmergencyModule } from './modules/emergency/emergency.module';
       }),
       inject: [ConfigService],
     }),
+    ScheduleModule.forRoot(),
     HealthModule,
     SlackModule,
     EmergencyModule,
+    TierModule,
   ],
   providers: [],
 })
