@@ -98,13 +98,14 @@ export class TierService {
     const users = await this.userRepository.find();
 
     //모든 유저에게 slack 에 티어 정산이 되었다는 메세지를 보낸다.
-    for (const { username, channel } of users) {
+    const promises = users.map(async ({ username, channel }) => {
       const message = `🎉 ${username}님의 티어가 정산되었습니다. 🎉`;
       await this.slack.chat.postMessage({
         channel: channel,
         text: message,
       });
-    }
+    });
+    await Promise.all(promises);
   }
 
   /**
