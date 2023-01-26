@@ -1,5 +1,12 @@
 
 
+## [1.2.1](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/compare/v1.2.0...v1.2.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* **tier:** fix alarm bug ([32e0353](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/commit/32e0353056a98d86e866f304e11ff0e33a7b8e1b))
+
 ## [1.2.0](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/compare/v1.1.0...v1.2.0) (2023-01-22)
 
 
