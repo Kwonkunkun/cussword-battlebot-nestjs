@@ -55,11 +55,11 @@ export class SlackEventService {
       //욕에 맞는 답변을 보냄
       return await this.slack.chat.postMessage({
         channel: event.channel,
-        text: util.getRandomSlackMessage(GOOD_EMOJI, GOOD_MESSAGES),
+        text: util.getRandomSlackMessage(GOOD_EMOJI, GOOD_MESSAGES) + ' (+1)',
       });
     }
 
-    //욕이 아니라면, 비아냥거리는 말투 사용🫥, 내 user service 에 count 하나 추가
+    //욕이 아니라면, 비아냥거리는 말투 사용 🫥, 내 user service 에 count 하나 추가
     await this.userService.increaseServiceCount(user, 'other');
     return await this.slack.chat.postMessage({
       channel: event.channel,
