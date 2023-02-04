@@ -1,5 +1,12 @@
 
 
+## [1.3.0](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/compare/v1.2.2...v1.3.0) (2023-02-04)
+
+
+### Features
+
+* **role:** role 기능 추가 ([07e419a](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/commit/07e419a516441ecd82ce9692c79c5809817fd12a))
+
 ## [1.2.2](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/compare/v1.2.1...v1.2.2) (2023-01-26)
 
 ## [1.2.1](https://github.com/Kwonkunkun/cussword-battlebot-nestjs/compare/v1.2.0...v1.2.1) (2023-01-26)
