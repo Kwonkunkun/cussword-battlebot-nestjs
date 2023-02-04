@@ -11,7 +11,8 @@ import { UserServiceEntity } from './typeorm/entities/user-service.entity';
 import { EmergencyModule } from './modules/emergency/emergency.module';
 import { TierModule } from './modules/tier/tier.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ServiceModule } from './modules/service/service.module';
+import { RoleEntity } from './typeorm/entities/role.entity';
+import { UserRoleEntity } from './typeorm/entities/user-role.entity';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -25,7 +26,13 @@ import { ServiceModule } from './modules/service/service.module';
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
-          entities: [UserEntity, ServiceEntity, UserServiceEntity],
+          entities: [
+            UserEntity,
+            ServiceEntity,
+            UserServiceEntity,
+            RoleEntity,
+            UserRoleEntity,
+          ],
           synchronize: isDev,
           logging: isDev,
         };

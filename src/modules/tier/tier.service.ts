@@ -10,7 +10,8 @@ import {
   InjectSlackClient,
   SlackClient,
 } from '@int31302/nestjs-slack-listener';
-import { UserEntity } from '../../typeorm/entities/user.entity';
+import { UserRoleEntity } from '../../typeorm/entities/user-role.entity';
+import { RoleService } from '../role/role.service';
 
 @Injectable()
 export class TierService {
@@ -18,14 +19,13 @@ export class TierService {
 
   constructor(
     @InjectRepository(UserServiceEntity)
-    private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(UserServiceEntity)
     private readonly userServiceRepository: Repository<UserServiceEntity>,
     @InjectSlackClient()
     private readonly slack: SlackClient,
     private readonly serviceService: ServiceService,
     private readonly userService: UserService,
     private readonly dataSource: DataSource,
+    private readonly roleService: RoleService,
   ) {}
 
   /**
@@ -84,8 +84,8 @@ export class TierService {
     //각 서비스에 대한 count 를 0으로 초기화한다.
     await this.resetCount();
 
-    //cron job 이 끝나면, 모든 유저에게 slack 에 티어 정산이 되었다는 메세지를 보내기.
-    await this.sendTierMessageForAllUser();
+    //cron job 이 끝나면, 어드민 유저에게 slack 에 티어 정산이 되었다는 메세지를 보내기.
+    await this.sendTierMessageForAdmin();
 
     this.logger.debug('finish cron job');
   }
@@ -93,19 +93,20 @@ export class TierService {
   /**
    * @description
    */
-  async sendTierMessageForAllUser() {
-    //모든 유저를 가져온다.
-    const users = await this.userRepository.find();
+  async sendTierMessageForAdmin() {
+    //어드민을 가져온다.
+    const admins = await this.roleService.getUsersByRole('admin');
 
-    //모든 유저에게 slack 에 티어 정산이 되었다는 메세지를 보낸다.
-    const promises = users.map(async ({ username, channel }) => {
-      const message = `🎉 ${username}님의 티어가 정산되었습니다. 🎉`;
-      await this.slack.chat.postMessage({
-        channel: channel,
-        text: message,
-      });
-    });
-    await Promise.all(promises);
+    //어드민 유저들에게 slack 에 티어 정산이 되었다는 메세지를 보낸다.
+    await Promise.all(
+      admins.map(async ({ username, channel }) => {
+        const message = `🎉 ${username}님 사람들의 티어가 정산되었어요! 🎉`;
+        await this.slack.chat.postMessage({
+          channel: channel,
+          text: message,
+        });
+      }),
+    );
   }
 
   /**
@@ -179,10 +180,6 @@ export class TierService {
         .andWhere('serviceId = :serviceId', { serviceId: serviceId })
         .execute();
     });
-
-    this.logger.debug(`gold tier users: ${goldTierUsers.length}`);
-    this.logger.debug(`silver tier users: ${silverTierUsers.length}`);
-    this.logger.debug(`bronze tier users: ${bronzeTierUsers.length}`);
   }
 
   /**

@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserServiceEntity } from '../../typeorm/entities/user-service.entity';
 import { UserModule } from '../user/user.module';
 import { TierController } from './tier.controller';
-import { UserEntity } from '../../typeorm/entities/user.entity';
+import { RoleModule } from '../role/role.module';
 
 /**
  * @description
@@ -14,9 +14,10 @@ import { UserEntity } from '../../typeorm/entities/user.entity';
  */
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserServiceEntity, UserEntity]),
+    TypeOrmModule.forFeature([UserServiceEntity]),
     ServiceModule,
     UserModule,
+    RoleModule,
   ],
   controllers: [TierController],
   providers: [TierService],
